@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/config
+/.vs/TorrentCheck/v15/Server/sqlite3
+/.vs/TorrentCheck/v15/sqlite3/db.lock
+/.vs/TorrentCheck/v15/sqlite3/storage.ide-shm
+/.vs/TorrentCheck/v15/sqlite3/storage.ide-wal

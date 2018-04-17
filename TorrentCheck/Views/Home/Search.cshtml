@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+@model TorrentCheck.Models.HomeViewModels.SearchViewModel
+
+<h1>@ViewData["Title"]</h1>
+<div>
+    <div class="col-md-12">
+        <form method="POST" asp-action="Search">
+            <div class="form-group">
+                <input type="text" name="query" id="query" placeholder="Search for torrents..." class="field" />
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </form>
+    </div>
+    <hr />
+    <div class="col-lg-12">        
+        <ul>
+        @foreach (Result element in ViewBag.Results) { <li><p>Title: @element.Title | Trusted: @element.Trusted.ToString()</p></li> }
+        </ul>
+    </div>
+</div>
