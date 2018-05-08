@@ -10,6 +10,7 @@ namespace TorrentCheck.Models
     {
         private string title;
         private bool trusted;
+        private Category category;
 
         public string Title => title;
         public bool Trusted => trusted;
@@ -23,6 +24,14 @@ namespace TorrentCheck.Models
         {
             title = Title;
             trusted = Trusted;
+        }
+
+        private enum Category
+        {
+            Application,
+            Game,
+            Movie,
+            Audio
         }
     }
 }

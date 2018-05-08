@@ -10,7 +10,10 @@ namespace TorrentCheck.DAL
 {
     public class DataContext : DbContext
     {
-        public DataContext() : base() { }
+        public DataContext(string connString)
+        {
+            this.Database.Connection.ConnectionString = connString;
+        }
 
         public DbSet<Torrent> Torrents;
         public DbSet<File> Files;

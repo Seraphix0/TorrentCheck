@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace TorrentCheck.DAL
 {
-    public class ITorrentRepository
+    public interface ISearchContext
     {
+        string ExecuteQuery(string uriString);
     }
 }
