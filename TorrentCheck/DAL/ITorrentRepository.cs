@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TorrentCheck.Models
+namespace TorrentCheck.DAL
 {
-    public class TorrentModel
+    public class ITorrentRepository
     {
     }
 }
