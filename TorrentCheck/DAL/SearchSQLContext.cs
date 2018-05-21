@@ -8,12 +8,9 @@ using TorrentCheck.Models;
 
 namespace TorrentCheck.DAL
 {
-    public class DataContext : DbContext
+    public class SearchSQLContext : DbContext
     {
-        public DataContext(string connString)
-        {
-            this.Database.Connection.ConnectionString = connString;
-        }
+        public SearchSQLContext(DbContextOptions<DbContext> options) : base(options) { }
 
         public DbSet<Torrent> Torrents;
         public DbSet<File> Files;

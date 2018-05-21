@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TorrentCheck.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace TorrentCheck.Logic
 {
     public class SearchLogic
     {
+
+        /*
         private SearchRepository repository;
 
         public SearchLogic(SearchRepository _repository)
@@ -16,6 +19,14 @@ namespace TorrentCheck.Logic
         }
 
         public List<Result> GetResults
+
+        */
+
+        public SearchLogic()
+        {
+            DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        }
 
         public List<string> SplitResults(string queryOutput)
         {

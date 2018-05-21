@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TorrentCheck.DAL
 {
-    public class SearchDbContext : ISearchContext
+    public class SearchDbContext : ISearchRepository
     {
         public string ExecuteQuery(string uriString)
         {

@@ -17,7 +17,7 @@ namespace TorrentCheck.Controllers
     {
         public HomeController ()
         {
-            logic = new SearchLogic(new SearchRepository(new SearchHTTPContext(), new SearchDbContext()));
+            logic = new SearchLogic(new _SearchRepository(new SearchHTTPContext(), new SearchDbContext()));
         }
 
         private SearchLogic logic;

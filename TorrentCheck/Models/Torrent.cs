@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data.Services
+using System.Data.Services;
 
 namespace TorrentCheck.Models
 {
@@ -17,7 +17,7 @@ namespace TorrentCheck.Models
             Md5Sum = md5Sum;
             Files = files;
             Comments = comments;
-            Uploader = uploader;
+            User_Id = uploader;
         }
 
         public int Id { get; set; }
@@ -27,6 +27,6 @@ namespace TorrentCheck.Models
         public string Md5Sum { get; set; }
         public List<File> Files { get; set; }
         public List<Comment> Comments { get; set; }
-        public int Uploader { get; set; }
+        public int User_Id { get; set; } // Uploader
     }
 }

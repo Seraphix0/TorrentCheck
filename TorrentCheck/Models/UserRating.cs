@@ -9,14 +9,14 @@ namespace TorrentCheck.Models
     {
         public UserRating(int id, int ratedBy, int value, string description)
         {
-            Id = id;
-            RatedBy = ratedBy;
+            User_Id = id;
+            RatedBy_User_Id = ratedBy;
             Value = value;
             Description = description;
         }
 
-        public int Id { get; set; }
-        public int RatedBy { get; set; }
+        public int User_Id { get; set; } // User who is being rated
+        public int RatedBy_User_Id { get; set; } // User who rated
         public int Value { get; set; }
         public string Description { get; set; }
     }

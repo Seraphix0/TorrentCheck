@@ -7,7 +7,7 @@ using System.IO;
 
 namespace TorrentCheck.DAL
 {
-    public class SearchHTTPContext : ISearchContext
+    public class SearchHTTPContext : ISearchRepository
     {
         public string ExecuteQuery(string uriString)
         {
