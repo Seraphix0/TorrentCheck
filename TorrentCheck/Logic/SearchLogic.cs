@@ -9,19 +9,6 @@ namespace TorrentCheck.Logic
 {
     public class SearchLogic
     {
-
-        /*
-        private SearchRepository repository;
-
-        public SearchLogic(SearchRepository _repository)
-        {
-            repository = _repository;
-        }
-
-        public List<Result> GetResults
-
-        */
-
         public SearchLogic()
         {
             DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();

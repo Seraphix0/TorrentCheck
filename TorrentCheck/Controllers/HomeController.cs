@@ -15,9 +15,11 @@ namespace TorrentCheck.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ITorrentRepository torrentRepository;
+
         public HomeController ()
         {
-            logic = new SearchLogic(new _SearchRepository(new SearchHTTPContext(), new SearchDbContext()));
+            this.torrentRepository = new TorrentRepository(new TorrentContext());
         }
 
         private SearchLogic logic;

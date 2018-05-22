@@ -6,14 +6,13 @@ using TorrentCheck.Models;
 
 namespace TorrentCheck.DAL
 {
-    public interface ISearchRepository : IDisposable
+    public interface ITorrentRepository : IDisposable
     {
         IEnumerable<Torrent> GetTorrents(string searchTerm);
         Torrent GetTorrentById(int id);
         void InsertTorrent(Torrent torrent);
         void DeleteTorrent(int id);
         void UpdateTorrent(Torrent torrent);
-        void Save(); // Nog niet zeker hoe dit moet worden toegepast.
-
+        void Save();
     }
 }
