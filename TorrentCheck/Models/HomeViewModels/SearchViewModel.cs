@@ -10,8 +10,10 @@ namespace TorrentCheck.Models.HomeViewModels
     {
         [Key]
         [Required]
-        [Display(Name = "Search")]
-        public string Search { get; set; }
+        [Display(Name = "Title")]
+        public string Title { get; set; }
 
+        public List<Result> HTTPResults { get; set; }
+        public List<Result> SQLResults { get; set; }
     }
 }

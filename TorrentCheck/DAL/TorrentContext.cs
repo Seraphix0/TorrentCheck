@@ -11,7 +11,7 @@ namespace TorrentCheck.DAL
 {
     public class TorrentContext : DbContext
     {
-        // public TorrentContext(DbContextOptions<DbContext> options) : base(options) { }
+        public TorrentContext(DbContextOptions<DbContext> options) : base(options) { }
 
         public DbSet<Torrent> Torrents;
         public DbSet<Models.File> Files;
@@ -19,16 +19,5 @@ namespace TorrentCheck.DAL
         public DbSet<TorrentRating> TorrentRatings;
         public DbSet<UserRating> UserRatings;
         public DbSet<UserDownloads> UserDownloads;
-
-        public string ExecuteQuery(string uriString)
-        {
-            WebClient webClient = new WebClient();
-            Stream stream = webClient.OpenRead(uriString);
-            StreamReader sr = new StreamReader(stream);
-            string content = sr.ReadToEnd();
-            stream.Close();
-
-            return content;
-        }
     }
 }

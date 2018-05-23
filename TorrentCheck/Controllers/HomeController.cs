@@ -10,19 +10,22 @@ using TorrentCheck.Models;
 using TorrentCheck.Models.HomeViewModels;
 using TorrentCheck.Logic;
 using TorrentCheck.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace TorrentCheck.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ITorrentRepository torrentRepository;
+        private readonly HomeLogic logic;
 
         public HomeController ()
         {
-            this.torrentRepository = new TorrentRepository(new TorrentContext());
+            DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            torrentRepository = new TorrentRepository(new TorrentContext(optionsBuilder.Options));
+            logic = new HomeLogic(torrentRepository);
         }
-
-        private SearchLogic logic;
 
         public IActionResult Index()
         {
@@ -48,27 +51,25 @@ namespace TorrentCheck.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        /// <summary>
+        /// Get list of qualifying torrents based on specified conditions.
+        /// Sources used: HTTP('proxyfl.info'), SQL('localdb')
+        /// </summary>
+        /// <param name="query">Model containing query params.</param>
+        /// <returns>Results to View</returns>
         [HttpPost]
         public IActionResult Search(SearchViewModel query)
         {
-            // URI to read
-            string uriString = String.Format("https://proxyfl.info/s/?q={0}&page=0&orderby=99", query.Search);
+            // Get results from HTTP source
+            List<Result> HTTPResults = logic.GetResultsHTTP(query);
 
-            // Execute query and return results
-            string queryOutput = SearchLogic.SearchRepository.ExecuteQuery(uriString);
+            // Get results from SQL Source
+            List<Result> SQLResults = logic.GetResultsSQL(query);
 
-            // Split results and build haystack
-            List<string> haystack = SplitResults(queryOutput);
+            // Return results to View
+            SearchViewModel searchViewModel = new SearchViewModel() { Title = query.Title, HTTPResults = HTTPResults, SQLResults = SQLResults };
 
-            // Instantiate and populate data storage with filtered results
-            List<Result> Results = new List<Result>();
-            foreach (string element in haystack)
-            {
-                Results.Add(new Result(FilterTitle(element), FilterTrusted(element)));
-            }
-
-            ViewBag.Results = Results;
-            return View();
+            return View(searchViewModel);
         }
     }
 }

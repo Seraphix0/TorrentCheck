@@ -16,9 +16,18 @@ namespace TorrentCheck.DAL
             this.context = context;
         }
 
-        public IEnumerable<Torrent> GetTorrents(string searchTerm)
+        public IEnumerable<Torrent> GetTorrents()
         {
-            return context.Torrents.ToList();
+            try
+            {
+                return context.Torrents.ToList();
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("There are currently no entries present in the database.");
+            }
+
+            return null;
         }
 
         public Torrent GetTorrentById (int id)

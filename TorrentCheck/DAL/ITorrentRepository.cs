@@ -8,7 +8,7 @@ namespace TorrentCheck.DAL
 {
     public interface ITorrentRepository : IDisposable
     {
-        IEnumerable<Torrent> GetTorrents(string searchTerm);
+        IEnumerable<Torrent> GetTorrents();
         Torrent GetTorrentById(int id);
         void InsertTorrent(Torrent torrent);
         void DeleteTorrent(int id);

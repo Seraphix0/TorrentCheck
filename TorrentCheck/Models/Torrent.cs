@@ -8,7 +8,7 @@ namespace TorrentCheck.Models
 {
     public class Torrent
     {
-        public Torrent(int id, string title, int size, DateTime uploadDate, string md5Sum, List<File> files, List<Comment> comments, int uploader)
+        public Torrent(int id, string title, int size, DateTime uploadDate, string md5Sum, List<File> files, List<Comment> comments, int user_Id, _Category category)
         {
             Id = id;
             Title = title;
@@ -17,7 +17,8 @@ namespace TorrentCheck.Models
             Md5Sum = md5Sum;
             Files = files;
             Comments = comments;
-            User_Id = uploader;
+            User_Id = user_Id;
+            Category = category;
         }
 
         public int Id { get; set; }
@@ -28,5 +29,14 @@ namespace TorrentCheck.Models
         public List<File> Files { get; set; }
         public List<Comment> Comments { get; set; }
         public int User_Id { get; set; } // Uploader
+        public _Category Category { get; set; }
+        public enum _Category
+        {
+            Application,
+            Game,
+            Movie,
+            Audio,
+            Undefined
+        }
     }
 }
