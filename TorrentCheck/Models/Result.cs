@@ -4,11 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using TorrentCheck.Models.HomeViewModels;
 using static TorrentCheck.Models.Torrent;
+using System.ComponentModel.DataAnnotations;
 
 namespace TorrentCheck.Models
 {
     public class Result
-    {        
+    {
+        [Key]
+        [Required]
         public string Title { get; }
 
         public bool Trusted { get; }

@@ -24,6 +24,6 @@ namespace TorrentCheck.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<TorrentCheck.Models.HomeViewModels.SearchViewModel> SearchViewModel { get; set; }
+        // public DbSet<TorrentCheck.Models.HomeViewModels.SearchViewModel> SearchViewModel { get; set; }
     }
 }

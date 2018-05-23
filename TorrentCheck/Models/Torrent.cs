@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace TorrentCheck.Models
 {
@@ -21,6 +22,8 @@ namespace TorrentCheck.Models
             Category = category;
         }
 
+        [Key]
+        [Required]
         public int Id { get; set; }
         public string Title { get; set; }
         public int Size { get; set; }
