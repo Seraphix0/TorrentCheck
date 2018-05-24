@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TorrentCheck.Models;
-using System.Net;
-using System.IO;
 
 namespace TorrentCheck.DAL
 {
@@ -14,7 +12,7 @@ namespace TorrentCheck.DAL
         public TorrentContext(DbContextOptions<DbContext> options) : base(options) { }
 
         public DbSet<Torrent> Torrents;
-        public DbSet<Models.File> Files;
+        public DbSet<File> Files;
         public DbSet<Comment> Comments;
         public DbSet<TorrentRating> TorrentRatings;
         public DbSet<UserRating> UserRatings;

@@ -9,7 +9,7 @@ namespace TorrentCheck.Logic.Upload
 {
     public class UploadLogic
     {
-        public BencodeNET.Torrents.Torrent DecodeTorrent(string torrentPath)
+        public BencodeNET.Torrents.Torrent DecodeTorrentFile(string torrentPath)
         {
             BencodeNET.Parsing.BencodeParser parser = new BencodeNET.Parsing.BencodeParser();
             return parser.Parse<BencodeNET.Torrents.Torrent>(torrentPath);

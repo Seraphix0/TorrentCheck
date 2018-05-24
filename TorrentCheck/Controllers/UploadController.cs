@@ -35,7 +35,7 @@ namespace TorrentCheck.Controllers
                     await uploadViewModel.TorrentToDecode.CopyToAsync(stream);
                 }
 
-                BencodeNET.Torrents.Torrent torrent = logic.DecodeTorrent(tempFilePath);
+                BencodeNET.Torrents.Torrent torrent = logic.DecodeTorrentFile(tempFilePath);
 
                 // TODO: Insert torrent into database
 
