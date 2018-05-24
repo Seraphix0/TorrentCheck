@@ -9,14 +9,23 @@ using TorrentCheck.Models.UploadViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using TorrentCheck.Logic.Upload;
+using TorrentCheck.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace TorrentCheck.Controllers
 {
     public class UploadController : Controller
     {
+        private readonly ITorrentRepository torrentRepository;
         private readonly UploadLogic logic;
 
-        public UploadController() => logic = new UploadLogic();
+        public UploadController()
+        {
+            DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            torrentRepository = new TorrentRepository(new TorrentContext(optionsBuilder.Options));
+            logic = new UploadLogic(torrentRepository);
+        }
 
         public IActionResult Index()
         {
@@ -38,7 +47,7 @@ namespace TorrentCheck.Controllers
                 BencodeNET.Torrents.Torrent torrent = logic.DecodeTorrentFile(tempFilePath);
 
                 // TODO: Insert torrent into database
-
+                logic.InsertTorrent(torrent);
 
                 return Ok(new { tempFilePath });
             }
