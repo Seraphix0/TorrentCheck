@@ -13,6 +13,13 @@ namespace TorrentCheck.DAL
         void InsertTorrent(Torrent torrent);
         void DeleteTorrent(int id);
         void UpdateTorrent(Torrent torrent);
-        void Save();
+
+        IEnumerable<File> GetFiles(Torrent torrent);
+        File GetFileById(int id);
+        void InsertFile(File file);
+        void DeleteFile(int id);
+        void UpdateFile(File file);
+
+        void SaveChanges();
     }
 }

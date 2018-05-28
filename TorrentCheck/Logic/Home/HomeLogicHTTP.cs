@@ -5,11 +5,19 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using TorrentCheck.Models;
+using static TorrentCheck.Models.Torrent;
 
 namespace TorrentCheck.Logic
 {
     public class HomeLogicHTTP
     {
+        public List<Result> GetResults(string uriString)
+        {
+            string queryOutput = ExecuteQuery(uriString);
+            List<string> splitResults = SplitResults(queryOutput);
+            return CompileList(splitResults);
+        }
+
         /// <summary>
         /// Execute query on remote web server and return page source.
         /// </summary>
@@ -100,7 +108,7 @@ namespace TorrentCheck.Logic
         /// </summary>
         /// <param name="element">Result to filter.</param>
         /// <returns>Category for given result.</returns>
-        public Torrent._Category FilterCategory(string element)
+        public Category FilterCategory(string element)
         {
             string needle1 = "category\">";
             string needle2 = "</a><br>";
@@ -108,12 +116,12 @@ namespace TorrentCheck.Logic
             string result = element.Substring(element.IndexOf(needle1) + needle1.Length);
             result = result.Substring(0, result.IndexOf(needle2));
 
-            if (Enum.TryParse(result, out Torrent._Category category))
+            if (Enum.TryParse(result, out Category category))
             {
                 return category;
             }
 
-            return Torrent._Category.Undefined;
+            return Category.Undefined;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace TorrentCheck.Controllers
 
         /// <summary>
         /// Get list of qualifying torrents based on specified conditions.
-        /// Sources used: HTTP('proxyfl.info'), SQL('localdb')
+        /// Sources used: HTTP('proxyfl.info'), SQL('MSSQLLocalDb')
         /// </summary>
         /// <param name="query">Model containing query params.</param>
         /// <returns>Results to View</returns>
@@ -60,9 +60,14 @@ namespace TorrentCheck.Controllers
             List<Result> SQLResults = logic.GetResultsSQL(query);
 
             // Return results to View
-            SearchViewModel searchViewModel = new SearchViewModel() { Title = query.Title, HTTPResults = HTTPResults, SQLResults = SQLResults };
+            SearchViewModel searchViewModel = new SearchViewModel() { Title = query.Title, Category = query.Category, HTTPResults = HTTPResults, SQLResults = SQLResults };
 
             return View(searchViewModel);
+        }
+
+        public IActionResult Browse()
+        {
+            return View();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace TorrentCheck.DAL
         {
             try
             {
-                return context.Torrents.ToList();
+                return context.Torrent.ToList();
             }
             catch (ArgumentNullException)
             {
@@ -32,18 +32,18 @@ namespace TorrentCheck.DAL
 
         public Torrent GetTorrentById (int id)
         {
-            return context.Torrents.Find(id);
+            return context.Torrent.Find(id);
         }
 
         public void InsertTorrent(Torrent torrent)
         {
-            context.Torrents.Add(torrent);
+            context.Torrent.Add(torrent);
         }
 
         public void DeleteTorrent(int id)
         {
-            Torrent torrent = context.Torrents.Find(id);
-            context.Torrents.Remove(torrent);
+            Torrent torrent = context.Torrent.Find(id);
+            context.Torrent.Remove(torrent);
         }
 
         public void UpdateTorrent(Torrent torrent)
@@ -51,7 +51,34 @@ namespace TorrentCheck.DAL
             context.Entry(torrent).State = EntityState.Modified;
         }
 
-        public void Save()
+        // TODO: GetFiles 'WHERE F.Torrent = torrent'
+        public IEnumerable<File> GetFiles(Torrent torrent)
+        {
+            return context.File.Where(t => t.Torrent == torrent);
+        }
+
+        public File GetFileById(int id)
+        {
+            return context.File.Find(id);
+        }
+
+        public void InsertFile(File file)
+        {
+            context.File.Add(file);
+        }
+
+        public void DeleteFile(int id)
+        {
+            File file = context.File.Find(id);
+            context.File.Remove(file);
+        }
+
+        public void UpdateFile(File file)
+        {
+            context.Entry(file).State = EntityState.Modified;
+        }
+
+        public void SaveChanges()
         {
             context.SaveChanges();
         }

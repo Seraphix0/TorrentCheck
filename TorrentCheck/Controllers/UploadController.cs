@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using TorrentCheck.Models;
 using TorrentCheck.Models.UploadViewModels;
 using System.IO;
-using Microsoft.AspNetCore.Http;
 using TorrentCheck.Logic.Upload;
 using TorrentCheck.DAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TorrentCheck.Controllers
 {
@@ -38,28 +36,23 @@ namespace TorrentCheck.Controllers
             // Process file upload
             if (uploadViewModel.TorrentToDecode.FileName.EndsWith(".torrent"))
             {
-                var tempFilePath = Path.GetTempFileName();
-                using (var stream = new FileStream(tempFilePath, FileMode.Create))
+                string TorrentFilePath = @"Data\TorrentFiles\" + uploadViewModel.TorrentToDecode.FileName;
+                TorrentFilePath = Path.GetFullPath(TorrentFilePath);
+                using (var stream = new FileStream(TorrentFilePath, FileMode.Create))
                 {
                     await uploadViewModel.TorrentToDecode.CopyToAsync(stream);
                 }
 
-                BencodeNET.Torrents.Torrent torrent = logic.DecodeTorrentFile(tempFilePath);
+                BencodeNET.Torrents.Torrent torrent = logic.DecodeTorrentFile(TorrentFilePath);
 
-                // TODO: Insert torrent into database
-                logic.InsertTorrent(torrent);
+                // Insert torrent into database
+                logic.InsertTorrent(torrent, User.Identity.Name, TorrentFilePath);
 
-                return Ok(new { tempFilePath });
+                return Ok(new { TorrentFilePath });
             }
 
             string errorMessage = "File is not of type .torrent!";
             return Ok(new { errorMessage });
-            
-
-            
-
-
-            
         }
     }
 }

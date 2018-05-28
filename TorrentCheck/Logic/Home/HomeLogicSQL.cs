@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TorrentCheck.DAL;
 using TorrentCheck.Models;
 
 namespace TorrentCheck.Logic

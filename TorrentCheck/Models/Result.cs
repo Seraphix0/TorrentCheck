@@ -20,7 +20,7 @@ namespace TorrentCheck.Models
 
         public int TorrentId { get; }
 
-        public _Category Category { get; }
+        public Category Category { get; }
 
         /// <summary>
         /// Result signifying single formatted <see cref="Models.Torrent"/> for use in presentation layer.
@@ -30,7 +30,7 @@ namespace TorrentCheck.Models
         /// <param name="isHomeSource">Result originating from TorrentCheck index.</param>
         /// <param name="torrentId">Associated TorrentId in database.</param>
         /// <param name="category"></param>
-        public Result(string title, bool trusted, bool isHomeSource, int torrentId, _Category category)
+        public Result(string title, bool trusted, bool isHomeSource, int torrentId, Category category)
         {
             Title = title;
             Trusted = trusted;
@@ -45,7 +45,7 @@ namespace TorrentCheck.Models
         /// <param name="title"></param>
         /// <param name="trusted"></param>
         /// <param name="category"></param>
-        public Result(string title, bool trusted, _Category category)
+        public Result(string title, bool trusted, Category category)
         {
             Title = title;
             Trusted = trusted;

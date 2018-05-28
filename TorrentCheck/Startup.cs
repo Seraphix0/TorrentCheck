@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TorrentCheck.Data;
 using TorrentCheck.Models;
 using TorrentCheck.Services;
+using TorrentCheck.DAL;
 
 namespace TorrentCheck
 {
@@ -19,6 +20,14 @@ namespace TorrentCheck
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            using (TorrentContext context = new TorrentContext(optionsBuilder.Options))
+            {
+                context.Database.EnsureCreated();
+                context.Database.Migrate();
+            }
         }
 
         public IConfiguration Configuration { get; }

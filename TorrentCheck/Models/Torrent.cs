@@ -4,42 +4,74 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.Services;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TorrentCheck.Models
 {
     public class Torrent
     {
-        public Torrent(int id, string title, int size, DateTime uploadDate, string md5Sum, List<File> files, List<Comment> comments, int user_Id, _Category category)
+        public Torrent() { }
+
+        public Torrent(int id, string title, long size, DateTime uploadDate, string infoHash, string userName, Category category)
         {
             Id = id;
             Title = title;
             Size = size;
             UploadDate = uploadDate;
-            Md5Sum = md5Sum;
-            Files = files;
-            Comments = comments;
-            User_Id = user_Id;
+            InfoHash = infoHash;
+            UserName = userName;
+            Category = category;
+        }
+
+        /// <summary>
+        /// Constructor for database inserts, with Id = 0 for auto-generated identity increments.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="size"></param>
+        /// <param name="uploadDate"></param>
+        /// <param name="md5Sum"></param>
+        /// <param name="user_Id"></param>
+        /// <param name="category"></param>
+        public Torrent(string title, long size, DateTime uploadDate, string infoHash, string filePath, string userName, Category category)
+        {
+            Id = 0;
+            Title = title;
+            Size = size;
+            UploadDate = uploadDate;
+            InfoHash = infoHash;
+            FilePath = filePath;
+            UserName = userName;
             Category = category;
         }
 
         [Key]
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
         public string Title { get; set; }
-        public int Size { get; set; }
+
+        [Required]
+        public long Size { get; set; }
+
+        [Required]
         public DateTime UploadDate { get; set; }
-        public string Md5Sum { get; set; }
-        public List<File> Files { get; set; }
-        public List<Comment> Comments { get; set; }
-        public int User_Id { get; set; } // Uploader
-        public _Category Category { get; set; }
-        public enum _Category
-        {
-            Application,
-            Game,
-            Movie,
-            Audio,
-            Undefined
-        }
+
+        public string InfoHash { get; set; }
+
+        [Required]
+        public string FilePath { get; set; }
+
+        // [ForeignKey ("ApplicationUser")]
+        [Required]
+        public string UserName { get; set; } // Uploader
+
+        public ICollection<File> Files { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+
+        [Required]
+        public Category Category { get; set; }
     }
 }
