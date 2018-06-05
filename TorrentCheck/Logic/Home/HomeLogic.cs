@@ -118,7 +118,13 @@ namespace TorrentCheck.Logic
                             FilteredResults.Add(element);
                         }
                     }
-                    return FilteredResults;
+
+                    if(FilteredResults.Any())
+                    {
+                        return FilteredResults;
+                    }
+
+                    return null;
                 }
                 else
                 {
@@ -131,7 +137,13 @@ namespace TorrentCheck.Logic
                             FilteredResults.Add(element);
                         }
                     }
-                    return FilteredResults;
+
+                    if (FilteredResults.Any())
+                    {
+                        return FilteredResults;
+                    }
+
+                    return null;
                 }
             }
             else
@@ -143,7 +155,13 @@ namespace TorrentCheck.Logic
                         FilteredResults.Add(element);
                     }
                 }
-                return FilteredResults;
+
+                if (FilteredResults.Any())
+                {
+                    return FilteredResults;
+                }
+
+                return null;
             }
 
             throw new Exception("Incorrect query format.");
