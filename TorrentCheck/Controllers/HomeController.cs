@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Html;
 using TorrentCheck.Models;
 using TorrentCheck.Models.HomeViewModels;
 using TorrentCheck.Logic;
@@ -32,6 +33,11 @@ namespace TorrentCheck.Controllers
             return View();
         }
 
+        public IActionResult Browse()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -53,21 +59,30 @@ namespace TorrentCheck.Controllers
         [HttpPost]
         public IActionResult Search(SearchViewModel query)
         {
-            // Get results from HTTP source
-            List<Result> HTTPResults = logic.GetResultsHTTP(query);
-
-            // Get results from SQL Source
+            SearchViewModel searchViewModel = new SearchViewModel();
             List<Result> SQLResults = logic.GetResultsSQL(query);
 
-            // Return results to View
-            SearchViewModel searchViewModel = new SearchViewModel() { Title = query.Title, Category = query.Category, HTTPResults = HTTPResults, SQLResults = SQLResults };
+            if (SQLResults != null)
+            {
+                searchViewModel.SQLResults = SQLResults;
+            }
+
+            if (query.SearchAll)
+            {
+                List<Result> HTTPResults = logic.GetResultsHTTP(query);
+                if (HTTPResults != null)
+                {
+                    searchViewModel.HTTPResults = HTTPResults;
+                }
+            }
 
             return View(searchViewModel);
         }
 
-        public IActionResult Browse()
+        public FileResult Download(string FilePath)
         {
-            return View();
+            byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath);
+            return File(fileBytes, "application/x-msdownload", Path.GetFileName(FilePath));
         }
     }
 }

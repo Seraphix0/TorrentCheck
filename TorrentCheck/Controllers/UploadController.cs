@@ -30,6 +30,18 @@ namespace TorrentCheck.Controllers
             return View();
         }
 
+        public IActionResult Browse()
+        {
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            ViewData["Message"] = "Your application description page.";
+
+            return View();
+        }
+
         [HttpPost("Upload")]
         public async Task<IActionResult> Upload(UploadViewModel uploadViewModel)
         {
@@ -48,11 +60,16 @@ namespace TorrentCheck.Controllers
                 // Insert torrent into database
                 logic.InsertTorrent(torrent, User.Identity.Name, TorrentFilePath);
 
-                return Ok(new { TorrentFilePath });
+                // uploadViewModel.UploadSuccessful = true;
+                return View("Index", uploadViewModel);
             }
 
-            string errorMessage = "File is not of type .torrent!";
-            return Ok(new { errorMessage });
+            else
+            {
+                // uploadViewModel.UploadSuccessful = false;
+                // uploadViewModel.IncorrectFileType = true;
+                return View("Index", uploadViewModel);
+            }
         }
     }
 }

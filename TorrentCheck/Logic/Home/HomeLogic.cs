@@ -93,7 +93,6 @@ namespace TorrentCheck.Logic
         /// <returns>List of results from SQL source.</returns>
         public List<Result> GetResultsSQL (SearchViewModel query)
         {
-            // TODO: Implement conditional logic
             IEnumerable<Torrent> torrents = repository.GetTorrents();
             List<Result> Results = new List<Result>();
             try
@@ -102,8 +101,7 @@ namespace TorrentCheck.Logic
             }
             catch (NullReferenceException e)
             {
-                Console.WriteLine("");
-                throw new Exception("Database returned zero results.", e);
+                return null;
             }
 
             List<Result> FilteredResults = new List<Result>();
@@ -113,23 +111,27 @@ namespace TorrentCheck.Logic
                 {
                     foreach (Result element in Results)
                     {
-                        if (element.Title.Contains(query.Title) && element.Category == query.Category)
+                        string titleLower = element.Title.ToLower();
+                        // if (element.Title.Contains(query.Title) && element.Category == query.Category)
+                        if (titleLower.Contains(query.Title.ToLower()) && element.Category == query.Category)
                         {
                             FilteredResults.Add(element);
                         }
-                        return FilteredResults;
                     }
+                    return FilteredResults;
                 }
                 else
                 {
                     foreach (Result element in Results)
                     {
-                        if (element.Title.Contains(query.Title))
+                        string titleLower = element.Title.ToLower();
+                        // if (element.Title.Contains(query.Title))
+                        if (titleLower.Contains(query.Title.ToLower()))
                         {
                             FilteredResults.Add(element);
                         }
-                        return FilteredResults;
                     }
+                    return FilteredResults;
                 }
             }
             else
@@ -140,8 +142,8 @@ namespace TorrentCheck.Logic
                     {
                         FilteredResults.Add(element);
                     }
-                    return FilteredResults;
                 }
+                return FilteredResults;
             }
 
             throw new Exception("Incorrect query format.");

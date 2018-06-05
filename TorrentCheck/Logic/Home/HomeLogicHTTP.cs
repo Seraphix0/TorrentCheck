@@ -25,13 +25,21 @@ namespace TorrentCheck.Logic
         /// <returns>HTML page source.</returns>
         public string ExecuteQuery(string uriString)
         {
-            WebClient webClient = new WebClient();
-            Stream stream = webClient.OpenRead(uriString);
-            StreamReader sr = new StreamReader(stream);
-            string content = sr.ReadToEnd();
-            stream.Close();
+            try
+            {
+                WebClient webClient = new WebClient();
+                Stream stream = webClient.OpenRead(uriString);
+                StreamReader sr = new StreamReader(stream);
+                string content = sr.ReadToEnd();
+                stream.Close();
+                return content;
+            }
+            catch (WebException e)
+            {
+                return null;
+            }
 
-            return content;
+            
         }
 
         /// <summary>

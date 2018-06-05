@@ -1,0 +1,17 @@
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\TorrentCheck.Tests.deps.json
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\TorrentCheck.Tests.runtimeconfig.json
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\TorrentCheck.Tests.runtimeconfig.dev.json
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\TorrentCheck.Tests.dll
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\TorrentCheck.Tests.pdb
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\TorrentCheck.dll
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\bin\Debug\netcoreapp2.0\TorrentCheck.pdb
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\obj\Debug\netcoreapp2.0\TorrentCheck.Tests.csprojAssemblyReference.cache
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\obj\Debug\netcoreapp2.0\TorrentCheck.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\obj\Debug\netcoreapp2.0\TorrentCheck.Tests.AssemblyInfoInputs.cache
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\obj\Debug\netcoreapp2.0\TorrentCheck.Tests.AssemblyInfo.cs
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\obj\Debug\netcoreapp2.0\TorrentCheck.Tests.csproj.CopyComplete
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\obj\Debug\netcoreapp2.0\TorrentCheck.Tests.dll
+C:\Users\Melvin\Source\Repos\TorrentCheck\TorrentCheck.Tests\obj\Debug\netcoreapp2.0\TorrentCheck.Tests.pdb
