@@ -22,6 +22,8 @@ namespace TorrentCheck.Models
 
         public Category Category { get; }
 
+        public string FilePath { get; }
+
         /// <summary>
         /// Result signifying single formatted <see cref="Models.Torrent"/> for use in presentation layer.
         /// </summary>
@@ -30,13 +32,14 @@ namespace TorrentCheck.Models
         /// <param name="isHomeSource">Result originating from TorrentCheck index.</param>
         /// <param name="torrentId">Associated TorrentId in database.</param>
         /// <param name="category"></param>
-        public Result(string title, bool trusted, bool isHomeSource, int torrentId, Category category)
+        public Result(string title, bool trusted, bool isHomeSource, int torrentId, Category category, string filePath)
         {
             Title = title;
             Trusted = trusted;
             IsHomeSource = isHomeSource;
             TorrentId = torrentId;
             Category = category;
+            FilePath = filePath;
         }
 
         /// <summary>

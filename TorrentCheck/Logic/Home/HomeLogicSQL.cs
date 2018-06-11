@@ -19,7 +19,7 @@ namespace TorrentCheck.Logic
             List<Result> results = new List<Result>();
             foreach (Torrent element in torrents)
             {
-                results.Add(new Result(element.Title, true, true, element.Id, element.Category));
+                results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath));
             }
 
             return results;
