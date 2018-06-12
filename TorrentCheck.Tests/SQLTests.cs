@@ -7,7 +7,7 @@ using TorrentCheck.DAL;
 
 namespace TorrentCheck.Tests
 {
-    public class QueryTests
+    public class SQLResults
     {
         [Fact]
         public void SQLResultsTest1()
@@ -44,7 +44,7 @@ namespace TorrentCheck.Tests
 
             var Results = logic.GetResultsSQL(query);
 
-            Assert.False(Results != null, "The method return unexpected results.");
+            Assert.True(Results == null, "The method return unexpected results.");
         }
     }
 }
