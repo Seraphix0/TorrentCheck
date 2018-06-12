@@ -11,9 +11,14 @@ namespace TorrentCheck.Logic
     {
         private readonly ITorrentRepository repository;
 
-        public HomeLogicSQL(ITorrentRepository repository)
+        public HomeLogicSQL(TorrentContext context)
         {
-            this.repository = repository;
+            repository = new TorrentRepository(context);
+        }
+
+        public IEnumerable<Torrent> GetAllTorrents ()
+        {
+            return repository.GetAllTorrents();
         }
 
         /// <summary>
@@ -26,19 +31,7 @@ namespace TorrentCheck.Logic
             List<Result> results = new List<Result>();
             foreach (Torrent element in torrents)
             {
-                results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, repository.GetFiles(element).ToList()));
-
-                /*
-                if (element.Files != null)
-                {
-                    results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, element.Files.ToList()));
-                }
-                else
-                {
-                    // TODO: Fix single file data
-                    results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, new List<File>() { new File() }));
-                }
-                */
+                results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, repository.GetFiles(element).ToList(),element.MagnetLink));
             }
 
             return results;

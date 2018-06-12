@@ -19,11 +19,6 @@ namespace TorrentCheck.Controllers
 
         public UploadController(TorrentContext context)
         {
-            /*
-            DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            torrentRepository = new TorrentRepository(new TorrentContext(optionsBuilder.Options));
-            */
             this.context = context;
 
             logic = new UploadLogic(context);
@@ -61,17 +56,13 @@ namespace TorrentCheck.Controllers
 
                 BencodeNET.Torrents.Torrent torrent = logic.DecodeTorrentFile(TorrentFilePath);
 
-                // Insert torrent into database
                 logic.InsertTorrent(torrent, User.Identity.Name, TorrentFilePath);
 
-                // uploadViewModel.UploadSuccessful = true;
                 return View("Index", uploadViewModel);
             }
 
             else
             {
-                // uploadViewModel.UploadSuccessful = false;
-                // uploadViewModel.IncorrectFileType = true;
                 return View("Index", uploadViewModel);
             }
         }

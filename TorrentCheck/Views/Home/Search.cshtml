@@ -51,7 +51,7 @@
                     {
                         <li>
                             <div id="result">
-                                Title: @element.Title | Trusted: @element.Trusted.ToString() | Category: @element.Category.ToString() | <a href="#" onclick="showFiles()">Show files</a> | 
+                                Title: @element.Title | Trusted: @element.Trusted.ToString() | Category: @element.Category.ToString() | <a href="#" onclick="showFiles()">Show files</a> | <a href="@element.MagnetLink">Magnet</a> | 
                                 @Html.ActionLink(
                                  linkText: "Download",
                                  actionName: "Download",

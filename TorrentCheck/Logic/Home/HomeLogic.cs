@@ -11,15 +11,13 @@ namespace TorrentCheck.Logic
 {
     public class HomeLogic
     {
-        private readonly ITorrentRepository repository;
         private readonly HomeLogicHTTP logicHTTP;
         private readonly HomeLogicSQL logicSQL;
 
         public HomeLogic(TorrentContext context)
         {
-            repository = new TorrentRepository(context);
             logicHTTP = new HomeLogicHTTP();
-            logicSQL = new HomeLogicSQL(repository);
+            logicSQL = new HomeLogicSQL(context);
         }
 
         /// <summary>
@@ -93,13 +91,12 @@ namespace TorrentCheck.Logic
         /// <returns>List of results from SQL source.</returns>
         public List<Result> GetResultsSQL (SearchViewModel query)
         {
-            IEnumerable<Torrent> torrents = repository.GetTorrents();
-            List<Result> Results = new List<Result>();
+            List<Result> Results;
             try
             {
-                Results = logicSQL.CompileList(torrents);
+                Results = logicSQL.CompileList(logicSQL.GetAllTorrents());
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 return null;
             }
