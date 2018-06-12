@@ -15,9 +15,9 @@ namespace TorrentCheck.Logic.Upload
     {
         private readonly ITorrentRepository torrentRepository;
 
-        public UploadLogic(ITorrentRepository repository)
+        public UploadLogic(TorrentContext context)
         {
-            torrentRepository = repository;
+            torrentRepository = new TorrentRepository(context);
         }
 
         public BencodeNET.Torrents.Torrent DecodeTorrentFile(string torrentPath)
@@ -28,7 +28,7 @@ namespace TorrentCheck.Logic.Upload
 
         public void InsertTorrent(BencodeNET.Torrents.Torrent decodedTorrent, string userName, string filePath)
         {
-            Torrent torrent = new Torrent(decodedTorrent.DisplayName, decodedTorrent.TotalSize, DateTime.Now, decodedTorrent.GetInfoHash(), filePath, userName, Category.Audio);
+            Torrent torrent = new Torrent(decodedTorrent.DisplayName, decodedTorrent.TotalSize, DateTime.Now, decodedTorrent.GetInfoHash(), filePath, userName, Category.Audio, decodedTorrent.GetMagnetLink());
             ICollection<Models.File> Files = PopulateFileList(decodedTorrent.File, decodedTorrent.Files, torrent);
             torrentRepository.InsertTorrent(torrent);
 

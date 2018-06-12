@@ -12,7 +12,7 @@ namespace TorrentCheck.Models
     {
         public Torrent() { }
 
-        public Torrent(int id, string title, long size, DateTime uploadDate, string infoHash, string userName, Category category)
+        public Torrent(int id, string title, long size, DateTime uploadDate, string infoHash, string userName, Category category, string magnetLink)
         {
             Id = id;
             Title = title;
@@ -21,6 +21,7 @@ namespace TorrentCheck.Models
             InfoHash = infoHash;
             UserName = userName;
             Category = category;
+            MagnetLink = magnetLink;
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace TorrentCheck.Models
         /// <param name="md5Sum"></param>
         /// <param name="user_Id"></param>
         /// <param name="category"></param>
-        public Torrent(string title, long size, DateTime uploadDate, string infoHash, string filePath, string userName, Category category)
+        public Torrent(string title, long size, DateTime uploadDate, string infoHash, string filePath, string userName, Category category, string magnetLink)
         {
             Id = 0;
             Title = title;
@@ -42,6 +43,7 @@ namespace TorrentCheck.Models
             FilePath = filePath;
             UserName = userName;
             Category = category;
+            MagnetLink = magnetLink;
         }
 
         [Key]
@@ -66,6 +68,8 @@ namespace TorrentCheck.Models
         // [ForeignKey ("ApplicationUser")]
         [Required]
         public string UserName { get; set; } // Uploader
+
+        public string MagnetLink { get; set; }
 
         public ICollection<File> Files { get; set; }
 

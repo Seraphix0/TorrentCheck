@@ -16,7 +16,7 @@ namespace TorrentCheck.DAL
             this.context = context;
         }
 
-        public IEnumerable<Torrent> GetTorrents()
+        public IEnumerable<Torrent> GetAllTorrents()
         {
             try
             {

@@ -1,0 +1,12 @@
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\bin\Release\netcoreapp2.0\TorrentCheck.deps.json
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\bin\Release\netcoreapp2.0\TorrentCheck.runtimeconfig.json
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\bin\Release\netcoreapp2.0\TorrentCheck.runtimeconfig.dev.json
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\bin\Release\netcoreapp2.0\TorrentCheck.dll
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\bin\Release\netcoreapp2.0\TorrentCheck.pdb
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\obj\Release\netcoreapp2.0\TorrentCheck.csproj.CoreCompileInputs.cache
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\obj\Release\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\obj\Release\netcoreapp2.0\TorrentCheck.AssemblyInfoInputs.cache
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\obj\Release\netcoreapp2.0\TorrentCheck.AssemblyInfo.cs
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\obj\Release\netcoreapp2.0\TorrentCheck.dll
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\obj\Release\netcoreapp2.0\TorrentCheck.pdb
+C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\obj\Release\netcoreapp2.0\TorrentCheck.csprojAssemblyReference.cache

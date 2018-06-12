@@ -12,6 +12,7 @@ using TorrentCheck.Data;
 using TorrentCheck.Models;
 using TorrentCheck.Services;
 using TorrentCheck.DAL;
+using System.Data.SqlClient;
 
 namespace TorrentCheck
 {
@@ -21,6 +22,7 @@ namespace TorrentCheck
         {
             Configuration = configuration;
 
+            /*
             DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             using (TorrentContext context = new TorrentContext(optionsBuilder.Options))
@@ -28,6 +30,7 @@ namespace TorrentCheck
                 context.Database.EnsureCreated();
                 context.Database.Migrate();
             }
+            */
         }
 
         public IConfiguration Configuration { get; }
@@ -35,8 +38,35 @@ namespace TorrentCheck
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Configuration.GetConnectionString("AzureIdentity")))
+                {
+                    conn.Open();
+                }
+                services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AzureIdentity")));
+            }
+            catch (Exception)
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LocalIdentity")));
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Configuration.GetConnectionString("AzureTorrentCheck")))
+                {
+                    conn.Open();
+                }
+                services.AddDbContext<TorrentContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AzureTorrentCheck")));
+            }
+            catch (Exception)
+            {
+                services.AddDbContext<TorrentContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LocalTorrentCheck")));
+            }
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

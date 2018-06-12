@@ -17,15 +17,14 @@ namespace TorrentCheck.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ITorrentRepository torrentRepository;
+        private readonly TorrentContext context;
         private readonly HomeLogic logic;
 
-        public HomeController ()
+        public HomeController (TorrentContext context)
         {
-            DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            torrentRepository = new TorrentRepository(new TorrentContext(optionsBuilder.Options));
-            logic = new HomeLogic(torrentRepository);
+            this.context = context;
+
+            logic = new HomeLogic(context);
         }
 
         public IActionResult Index()

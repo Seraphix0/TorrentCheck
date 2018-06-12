@@ -15,7 +15,15 @@ namespace TorrentCheck.Logic
         {
             string queryOutput = ExecuteQuery(uriString);
             List<string> splitResults = SplitResults(queryOutput);
-            return CompileList(splitResults);
+
+            if (splitResults != null)
+            {
+                return CompileList(splitResults);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -50,14 +58,21 @@ namespace TorrentCheck.Logic
         public List<string> SplitResults(string queryOutput)
         {
             string needle = "detName\">";
-            string haystackHTML = queryOutput.Substring(queryOutput.IndexOf(needle));
-            string[] haystackArray = haystackHTML.Split(needle);
-            List<string> haystack = haystackArray.ToList();
+            try
+            {
+                string haystackHTML = queryOutput.Substring(queryOutput.IndexOf(needle));
+                string[] haystackArray = haystackHTML.Split(needle);
+                List<string> haystack = haystackArray.ToList();
 
-            haystack.RemoveRange(0, 2);
-            haystack.Remove(haystack.Last());
+                haystack.RemoveRange(0, 2);
+                haystack.Remove(haystack.Last());
 
-            return haystack;
+                return haystack;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>

@@ -9,6 +9,18 @@ namespace TorrentCheck.Logic
 {
     public class HomeLogicSQL
     {
+        private readonly ITorrentRepository repository;
+
+        public HomeLogicSQL(TorrentContext context)
+        {
+            repository = new TorrentRepository(context);
+        }
+
+        public IEnumerable<Torrent> GetAllTorrents ()
+        {
+            return repository.GetAllTorrents();
+        }
+
         /// <summary>
         /// Return list with formatted results.
         /// </summary>
@@ -19,7 +31,7 @@ namespace TorrentCheck.Logic
             List<Result> results = new List<Result>();
             foreach (Torrent element in torrents)
             {
-                results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath));
+                results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, repository.GetFiles(element).ToList(),element.MagnetLink));
             }
 
             return results;
