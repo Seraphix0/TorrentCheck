@@ -12,6 +12,7 @@ using TorrentCheck.Data;
 using TorrentCheck.Models;
 using TorrentCheck.Services;
 using TorrentCheck.DAL;
+using System.Data.SqlClient;
 
 namespace TorrentCheck
 {
@@ -37,10 +38,35 @@ namespace TorrentCheck
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<TorrentContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Configuration.GetConnectionString("AzureIdentity")))
+                {
+                    conn.Open();
+                }
+                services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AzureIdentity")));
+            }
+            catch (Exception)
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LocalIdentity")));
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(Configuration.GetConnectionString("AzureTorrentCheck")))
+                {
+                    conn.Open();
+                }
+                services.AddDbContext<TorrentContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AzureTorrentCheck")));
+            }
+            catch (Exception)
+            {
+                services.AddDbContext<TorrentContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("LocalTorrentCheck")));
+            }
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
