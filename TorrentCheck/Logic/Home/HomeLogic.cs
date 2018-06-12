@@ -15,11 +15,11 @@ namespace TorrentCheck.Logic
         private readonly HomeLogicHTTP logicHTTP;
         private readonly HomeLogicSQL logicSQL;
 
-        public HomeLogic(ITorrentRepository repository)
+        public HomeLogic(TorrentContext context)
         {
-            this.repository = repository;
+            repository = new TorrentRepository(context);
             logicHTTP = new HomeLogicHTTP();
-            logicSQL = new HomeLogicSQL();
+            logicSQL = new HomeLogicSQL(repository);
         }
 
         /// <summary>

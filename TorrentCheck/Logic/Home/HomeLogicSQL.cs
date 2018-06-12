@@ -9,6 +9,13 @@ namespace TorrentCheck.Logic
 {
     public class HomeLogicSQL
     {
+        private readonly ITorrentRepository repository;
+
+        public HomeLogicSQL(ITorrentRepository repository)
+        {
+            this.repository = repository;
+        }
+
         /// <summary>
         /// Return list with formatted results.
         /// </summary>
@@ -19,7 +26,19 @@ namespace TorrentCheck.Logic
             List<Result> results = new List<Result>();
             foreach (Torrent element in torrents)
             {
-                results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath));
+                results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, repository.GetFiles(element).ToList()));
+
+                /*
+                if (element.Files != null)
+                {
+                    results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, element.Files.ToList()));
+                }
+                else
+                {
+                    // TODO: Fix single file data
+                    results.Add(new Result(element.Title, true, true, element.Id, element.Category, element.FilePath, new List<File>() { new File() }));
+                }
+                */
             }
 
             return results;

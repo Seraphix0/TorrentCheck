@@ -14,15 +14,19 @@ namespace TorrentCheck.Controllers
 {
     public class UploadController : Controller
     {
-        private readonly ITorrentRepository torrentRepository;
+        private readonly TorrentContext context;
         private readonly UploadLogic logic;
 
-        public UploadController()
+        public UploadController(TorrentContext context)
         {
+            /*
             DbContextOptionsBuilder<DbContext> optionsBuilder = new DbContextOptionsBuilder<DbContext>();
             optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             torrentRepository = new TorrentRepository(new TorrentContext(optionsBuilder.Options));
-            logic = new UploadLogic(torrentRepository);
+            */
+            this.context = context;
+
+            logic = new UploadLogic(context);
         }
 
         public IActionResult Index()

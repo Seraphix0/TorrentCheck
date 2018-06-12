@@ -24,15 +24,18 @@ namespace TorrentCheck.Models
 
         public string FilePath { get; }
 
+        public List<File> Files { get; set; }
+
         /// <summary>
         /// Result signifying single formatted <see cref="Models.Torrent"/> for use in presentation layer.
+        /// Superior implementation would be to let TorrentT implement ResultT.
         /// </summary>
         /// <param name="title"></param>
         /// <param name="trusted"></param>
         /// <param name="isHomeSource">Result originating from TorrentCheck index.</param>
         /// <param name="torrentId">Associated TorrentId in database.</param>
         /// <param name="category"></param>
-        public Result(string title, bool trusted, bool isHomeSource, int torrentId, Category category, string filePath)
+        public Result(string title, bool trusted, bool isHomeSource, int torrentId, Category category, string filePath, List<File> files)
         {
             Title = title;
             Trusted = trusted;
@@ -40,6 +43,7 @@ namespace TorrentCheck.Models
             TorrentId = torrentId;
             Category = category;
             FilePath = filePath;
+            Files = files;
         }
 
         /// <summary>

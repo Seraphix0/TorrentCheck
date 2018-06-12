@@ -15,9 +15,9 @@ namespace TorrentCheck.Logic.Upload
     {
         private readonly ITorrentRepository torrentRepository;
 
-        public UploadLogic(ITorrentRepository repository)
+        public UploadLogic(TorrentContext context)
         {
-            torrentRepository = repository;
+            torrentRepository = new TorrentRepository(context);
         }
 
         public BencodeNET.Torrents.Torrent DecodeTorrentFile(string torrentPath)

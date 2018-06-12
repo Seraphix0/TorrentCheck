@@ -9,7 +9,7 @@ namespace TorrentCheck.DAL
 {
     public class TorrentContext : DbContext
     {
-        public TorrentContext(DbContextOptions<DbContext> options) : base(options) { }
+        public TorrentContext(DbContextOptions<TorrentContext> options) : base(options) { }
 
         public DbSet<Torrent> Torrent { get; set; }
         public DbSet<File> File { get; set; }
