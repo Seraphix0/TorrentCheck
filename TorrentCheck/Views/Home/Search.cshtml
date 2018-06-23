@@ -6,86 +6,63 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <h1>@ViewData["Title"]</h1>
-<div class="container">
-    <div class="col-md-12">
-        <form method="post" asp-action="Search">
-            <div class="form-group">
-                <div class="form-inline">
-                    <label asp-for="Title"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-left"></span>
-                </div>
-                <br />
-                <div class="form-inline">
-                    <label asp-for="Category"></label>
-                    <select asp-for="Category" asp-items="Html.GetEnumSelectList<Category>()">
-                        <!--<option selected="selected" value="">Please select</option>-->
-                    </select>
-                    <span asp-validation-for="Category" class="text-danger" />
-                </div>
-                <br />
-                <div class="form-inline">
-                    <label asp-for="SearchExternal"></label>
-                    <input asp-for="SearchExternal" class="form-control" />
-                    <span asp-validation-for="SearchExternal" class="checkbox"></span>
-                    <button type="submit" class="btn btn-default">Search</button>
-                </div>
-            </div>
-        </form>
-    </div>
 
     <hr />
-
-    <div class="col-lg-12">
-        @if (Model.SQLResults == null && Model.HTTPResults == null)
-        {
-            <h4>No results matching your conditions were found.</h4>
-        }
-        else
-        {
-            @if (Model.SQLResults != null)
+    <div class="container">
+        <div class="col-lg-12">
+            @if (Model.SQLResults == null && Model.HTTPResults == null)
             {
-                <h4>TorrentCheck Exclusives:</h4>
-                <ul>
-                    @foreach (Result element in Model.SQLResults)
-                    {
-                        <li>
-                            <div id="result">
-                                Title: @element.Title | Trusted: @element.Trusted.ToString() | Category: @element.Category.ToString() | <a href="#" onclick="showFiles()">Show files</a> | <a href="@element.MagnetLink">Magnet</a> | 
-                                @Html.ActionLink(
-                                 linkText: "Download",
-                                 actionName: "Download",
-                                 controllerName: "Home",
-                                 routeValues: new
-                                 {
-                                     FilePath = element.FilePath
-                                 },
-                                 htmlAttributes: null
-                             )
+                <h4>No results matching your conditions were found.</h4>
+            }
+            else
+            {
+                @if (Model.SQLResults != null)
+                {
+                    <h4>TorrentCheck Exclusives:</h4>
+                    <ul>
+                        @foreach (Result element in Model.SQLResults)
+                        {
+                            <li>
+                                <div id="result">
+                                    Title: @element.Title | Trusted: @element.Trusted.ToString() | Category: @element.Category.ToString() | <a href="#" onclick="showFiles()">Show files</a> | <a href="@element.MagnetLink">Magnet</a> |
+                                    @Html.ActionLink(
+                                     linkText: "Download",
+                                     actionName: "Download",
+                                     controllerName: "Home",
+                                     routeValues: new
+                                     {
+                                         FilePath = element.FilePath
+                                     },
+                                     htmlAttributes: null
+                                 )
+                                </div>
+                                <div id="files" hidden>
+                                    @foreach (File file in element.Files)
+                                    {<p class="help-block">
+                                            @file.Name - @Convert.ToString(file.Size / 1024 / 1024) MB @if (file.FullPath != null)
+                                            {@file.FullPath}
+                                        </p>}
                             </div>
-                            <div id="files" hidden>@foreach (File file in element.Files)
-                            {<p class="help-block">@file.Name - @Convert.ToString(file.Size / 1024 / 1024) MB @if (file.FullPath != null)
-                            { @file.FullPath} </p>}</div>
                         </li>
                     }
-                </ul>
-            }
+                    </ul>
+                }
 
-            <hr />
+                <hr />
 
-            @if (Model.HTTPResults != null)
-            {
-                <h4>Remote sources:</h4>
-                <ul>
-                    @foreach (Result element in Model.HTTPResults)
-                    {
-                        <li><div id="result"><a href="@element.ExtLink">Title: @element.Title | Trusted: @element.Trusted.ToString() | Category: @element.Category.ToString()</a></div></li>}
-                    }
-                </ul>
+                @if (Model.HTTPResults != null)
+                {
+                    <h4>Remote sources:</h4>
+                    <ul>
+                        @foreach (Result element in Model.HTTPResults)
+                        {
+                            <li><div id="result">Title: @element.Title | Trusted: @element.Trusted.ToString() | Category: @element.Category.ToString()</div></li>
+                        }
+                    </ul>
+                }
             }
-        }
+        </div>
     </div>
-</div>
 
 <script>
     function showFiles() {
