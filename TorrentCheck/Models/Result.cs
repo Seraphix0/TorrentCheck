@@ -26,6 +26,8 @@ namespace TorrentCheck.Models
 
         public string MagnetLink { get; }
 
+        public string ExtLink { get; }
+
         public List<File> Files { get; set; }
 
         /// <summary>
@@ -55,11 +57,12 @@ namespace TorrentCheck.Models
         /// <param name="title"></param>
         /// <param name="trusted"></param>
         /// <param name="category"></param>
-        public Result(string title, bool trusted, Category category)
+        public Result(string title, bool trusted, Category category, string extLink)
         {
             Title = title;
             Trusted = trusted;
             Category = category;
+            ExtLink = extLink;
         }
     }
 }

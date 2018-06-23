@@ -42,7 +42,7 @@ namespace TorrentCheck.Logic
                 stream.Close();
                 return content;
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 return null;
             }
@@ -85,7 +85,7 @@ namespace TorrentCheck.Logic
             List<Result> results = new List<Result>();
             foreach (string element in splitResults)
             {
-                results.Add(new Result(FilterTitle(element), FilterTrusted(element), FilterCategory(element)));
+                results.Add(new Result(FilterTitle(element), FilterTrusted(element), FilterCategory(element), FilterLink(element)));
             }
 
             return results;
@@ -103,9 +103,7 @@ namespace TorrentCheck.Logic
             List<string> Titles = new List<string>();
 
             string result = element.Substring(element.IndexOf(needle2) + needle2.Length);
-            result = result.Substring(0, result.IndexOf(needle1));
-
-            return result;
+            return result.Substring(0, result.IndexOf(needle1));
         }
 
         /// <summary>
@@ -145,6 +143,23 @@ namespace TorrentCheck.Logic
             }
 
             return Category.Undefined;
+        }
+
+        /// <summary>
+        /// Return link to external page for given result.
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns>Link to external page for given result.</returns>
+        public string FilterLink(string element)
+        {
+            string needle1 = "/torrent/";
+            string needle2 = "\"";
+            string extSource = "https://proxyfl.info";
+
+            string result = element.Substring(element.IndexOf(needle1));
+            result = result.Substring(0, result.IndexOf(needle2));
+
+            return extSource + result;
         }
     }
 }

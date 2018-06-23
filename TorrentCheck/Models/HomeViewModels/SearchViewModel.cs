@@ -19,7 +19,7 @@ namespace TorrentCheck.Models.HomeViewModels
 
         public List<Result> SQLResults { get; set; }
 
-        public bool SearchAll { get; set; }
+        public bool SearchExternal { get; set; }
 
         public Result Result { get; set; }
 

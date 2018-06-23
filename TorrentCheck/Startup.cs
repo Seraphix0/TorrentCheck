@@ -43,6 +43,7 @@ namespace TorrentCheck
                 using (SqlConnection conn = new SqlConnection(Configuration.GetConnectionString("AzureIdentity")))
                 {
                     conn.Open();
+                    conn.Close();
                 }
                 services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AzureIdentity")));
@@ -58,6 +59,7 @@ namespace TorrentCheck
                 using (SqlConnection conn = new SqlConnection(Configuration.GetConnectionString("AzureTorrentCheck")))
                 {
                     conn.Open();
+                    conn.Close();
                 }
                 services.AddDbContext<TorrentContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AzureTorrentCheck")));
