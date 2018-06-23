@@ -46,8 +46,6 @@ namespace TorrentCheck.Logic
             {
                 return null;
             }
-
-            
         }
 
         /// <summary>

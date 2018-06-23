@@ -66,7 +66,7 @@ namespace TorrentCheck.Controllers
                 searchViewModel.SQLResults = SQLResults;
             }
 
-            if (query.SearchExternal)
+            if (!query.ExcludeRemoteSources)
             {
                 List<Result> HTTPResults = logic.GetResultsHTTP(query);
                 if (HTTPResults != null)

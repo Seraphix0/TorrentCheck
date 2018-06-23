@@ -32,6 +32,19 @@ namespace TorrentCheck.Logic
                 string uriString = String.Format("https://proxyfl.info/s/?q={0}&page=0&orderby=99", query.Title);
                 List<Result> Results = logicHTTP.GetResults(uriString);
                 
+                if (!query.IncludeUntrustedResults)
+                {
+                    List<Result> FilteredResults = new List<Result>();
+                    foreach (Result element in Results)
+                    {
+                        if (element.Trusted)
+                        {
+                            FilteredResults.Add(element);
+                        }
+                    }
+                    Results = FilteredResults;
+                }
+
                 if (query.Category != Category.Undefined)
                 {
                     List<Result> FilteredResults = new List<Result>();
@@ -41,11 +54,16 @@ namespace TorrentCheck.Logic
                         {
                             FilteredResults.Add(element);
                         }
-                        return FilteredResults;
                     }
+                    Results = FilteredResults;
                 }
 
-                return Results;
+                if (Results.Any())
+                {
+                    return Results;
+                }
+
+                return null;
             }
             else
             {

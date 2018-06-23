@@ -19,10 +19,10 @@ namespace TorrentCheck.Models.HomeViewModels
 
         public List<Result> SQLResults { get; set; }
 
-        public bool SearchExternal { get; set; }
+        public bool IncludeUntrustedResults { get; set; }
+
+        public bool ExcludeRemoteSources { get; set; }
 
         public Result Result { get; set; }
-
-        // public IEnumerable<SelectListItem> Categories { get; set; }
     }
 }
