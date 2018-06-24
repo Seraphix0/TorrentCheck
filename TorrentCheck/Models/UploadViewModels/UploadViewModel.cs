@@ -19,9 +19,5 @@ namespace TorrentCheck.Models.UploadViewModels
         public SelectList Categories { get; set; }
 
         public Category SelectedCategory { get; set; }
-
-        // public bool UploadSuccessful { get; set; }
-
-        // public bool IncorrectFileType { get; set; }
     }
 }

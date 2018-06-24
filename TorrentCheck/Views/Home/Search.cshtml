@@ -1,7 +1,9 @@
-﻿@{
+﻿@model TorrentCheck.Models.HomeViewModels.SearchViewModel
+
+@{
     ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
 }
-@model TorrentCheck.Models.HomeViewModels.SearchViewModel
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
@@ -41,9 +43,9 @@
                                         @file.Name - @Convert.ToString(file.Size / 1024 / 1024) MB @if (file.FullPath != null)
                                         {@file.FullPath}
                                     </p>}
-                        </div>
-                    </li>
-                }
+                            </div>
+                        </li>
+                    }
                 </ul>
 
                 <br />

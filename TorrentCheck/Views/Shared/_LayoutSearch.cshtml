@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model TorrentCheck.Models.HomeViewModels.SearchViewModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -39,6 +41,38 @@
             </div>
         </div>
     </nav>
+
+    <div class="container body-content" style="margin-top: 1%">
+        <form method="post" asp-action="Search">
+            <div class="form-group">
+                <div class="form-inline">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-left"></span>
+                </div>
+                <br />
+                <div class="form-inline">
+                    <label asp-for="Category"></label>
+                    <select asp-for="Category" asp-items="Html.GetEnumSelectList<Category>()">
+                        <!--<option selected="selected" value="">Please select</option>-->
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger" />
+                </div>
+                <br />
+                <div class="form-inline">
+                    <label asp-for="IncludeUntrustedResults"></label>
+                    <input asp-for="IncludeUntrustedResults" class="form-control" />
+                    <span asp-validation-for="IncludeUntrustedResults" class="checkbox"></span>
+                </div>
+                <div class="form-inline">
+                    <label asp-for="ExcludeRemoteSources"></label>
+                    <input asp-for="ExcludeRemoteSources" class="form-control" />
+                    <span asp-validation-for="ExcludeRemoteSources" class="checkbox"></span>
+                </div>
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </form>
+    </div>
 
     <div class="container body-content">
         @RenderBody()

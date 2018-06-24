@@ -33,6 +33,7 @@ C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck
 --file=C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\Views\Manage\_ViewImports.cshtml
 --file=C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\Views\Shared\Error.cshtml
 --file=C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\Views\Shared\_Layout.cshtml
+--file=C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\Views\Shared\_LayoutSearch.cshtml
 --file=C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\Views\Shared\_LoginPartial.cshtml
 --file=C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\Views\Shared\_ValidationScriptsPartial.cshtml
 --file=C:\Users\Melvin\source\repos\TorrentCheck\TorrentCheck\Views\Upload\Index.cshtml
