@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using TorrentCheck.Models;
-using static TorrentCheck.Models.Torrent;
+using TorrentCheck.Extensions;
 
 namespace TorrentCheck.Logic
 {
@@ -92,7 +91,7 @@ namespace TorrentCheck.Logic
             List<Result> results = new List<Result>();
             foreach (string element in splitResults)
             {
-                results.Add(new Result(FilterTitle(element), FilterTrusted(element), FilterCategory(element), FilterLink(element)));
+                results.Add(new Result(FilterTitle(element), FilterTrusted(element), FilterCategory(element), FilterLink(element), FilterSeeders(element), FilterLeechers(element)));
             }
 
             return results;
@@ -167,6 +166,31 @@ namespace TorrentCheck.Logic
 
             return RemoteSource + result;
         }
+
+        public string FilterSeeders(string element)
+        {
+            string needle1 = "<td align=\"right\">";
+            string needle2 = "</td>";
+
+            string seeders = element.Substring(element.IndexOf(needle1) + needle1.Length);
+            return seeders.Substring(0, seeders.IndexOf(needle2));
+        }
+
+        public string FilterLeechers(string element)
+        {
+            string needle1 = "<td align=\"right\">";
+            string needle2 = "</td>";
+
+            string leechers = element.Substring(LogicHelperExtensions.IndexOfNth(element, needle1, 2) + needle1.Length);
+            return leechers.Substring(0, leechers.IndexOf(needle2));
+        }
+
+        /*
+        public string FilterUploadDate()
+        {
+
+        }
+        */
 
         public List<string> SplitSources(string queryOutput)
         {

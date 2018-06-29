@@ -61,16 +61,20 @@
                             <th data-field="tite">Title</th>
                             <th data-field="trusted">Trusted</th>
                             <th data-field="category">Category</th>
+                            <th data-field="seeders">Seeders</th>
+                            <th data-field="leechers">Leechers</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (Result element in Model.HTTPResults)
                         {
-                            <tr>
-                                <td><a href="@element.ExtLink">@element.Title</a></td>
-                                <td>@element.Trusted.ToString()</td>
-                                <td>@element.Category.ToString()</td>
-                            </tr>
+                        <tr>
+                            <td><a href="@element.ExtLink">@element.Title</a></td>
+                            <td>@element.Trusted.ToString()</td>
+                            <td>@element.Category.ToString()</td>
+                            <td>@element.Seeders</td>
+                            <td>@element.Leechers</td>
+                        </tr>
                         }
                     </tbody>
                 </table>

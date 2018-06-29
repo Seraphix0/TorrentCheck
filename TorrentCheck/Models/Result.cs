@@ -28,6 +28,10 @@ namespace TorrentCheck.Models
 
         public string ExtLink { get; }
 
+        public string Seeders { get; set; }
+        
+        public string Leechers { get; set; }
+
         public List<File> Files { get; set; }
 
         /// <summary>
@@ -57,12 +61,14 @@ namespace TorrentCheck.Models
         /// <param name="title"></param>
         /// <param name="trusted"></param>
         /// <param name="category"></param>
-        public Result(string title, bool trusted, Category category, string extLink)
+        public Result(string title, bool trusted, Category category, string extLink, string seeders, string leechers)
         {
             Title = title;
             Trusted = trusted;
             Category = category;
             ExtLink = extLink;
+            Seeders = seeders;
+            Leechers = leechers;
         }
     }
 }
