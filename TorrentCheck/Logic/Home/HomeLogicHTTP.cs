@@ -11,6 +11,8 @@ namespace TorrentCheck.Logic
 {
     public class HomeLogicHTTP
     {
+        public string RemoteSource { get; set; }
+
         public List<Result> GetResults(string uriString)
         {
             string queryOutput = ExecuteQuery(uriString);
@@ -18,12 +20,19 @@ namespace TorrentCheck.Logic
 
             if (splitResults != null)
             {
-                return CompileList(splitResults);
+                return CompileList(splitResults, RemoteSource);
             }
             else
             {
                 return null;
             }
+        }
+
+        public List<string> GetRemoteSources()
+        {
+            string queryOutput = ExecuteQuery("https://thepiratebay-proxylist.org/");
+            List<string> sources = SplitSources(queryOutput);
+            return FilterURLs(sources);
         }
 
         /// <summary>
@@ -36,7 +45,7 @@ namespace TorrentCheck.Logic
             try
             {
                 WebClient webClient = new WebClient();
-                Stream stream = webClient.OpenRead(uriString);
+                Stream stream = webClient.OpenRead(WebUtility.HtmlEncode(uriString));
                 StreamReader sr = new StreamReader(stream);
                 string content = sr.ReadToEnd();
                 stream.Close();
@@ -78,7 +87,7 @@ namespace TorrentCheck.Logic
         /// </summary>
         /// <param name="splitResults">List with split results.</param>
         /// <returns>List with formatted results.</returns>
-        public List<Result> CompileList(List<string> splitResults)
+        public List<Result> CompileList(List<string> splitResults, string remoteSource)
         {
             List<Result> results = new List<Result>();
             foreach (string element in splitResults)
@@ -152,12 +161,33 @@ namespace TorrentCheck.Logic
         {
             string needle1 = "/torrent/";
             string needle2 = "\"";
-            string extSource = "https://proxyfl.info";
 
             string result = element.Substring(element.IndexOf(needle1));
             result = result.Substring(0, result.IndexOf(needle2));
 
-            return extSource + result;
+            return RemoteSource + result;
+        }
+
+        public List<string> SplitSources(string queryOutput)
+        {
+            string needle = "data-href=\"";
+            List<string> source = queryOutput.Split(needle).ToList();
+            source.RemoveAt(0);
+
+            return source;
+        }
+
+        public List<string> FilterURLs(List<string> splitSources)
+        {
+            string needle = "\"";
+            List<string> filteredSources = new List<string>();
+
+            foreach (string element in splitSources)
+            {
+                filteredSources.Add(element.Substring(0, element.IndexOf(needle)));
+            }
+
+            return filteredSources;
         }
     }
 }

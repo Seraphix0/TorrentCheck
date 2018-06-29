@@ -12,6 +12,7 @@ using TorrentCheck.Models.HomeViewModels;
 using TorrentCheck.Logic;
 using TorrentCheck.DAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace TorrentCheck.Controllers
 {
@@ -29,7 +30,8 @@ namespace TorrentCheck.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<SelectListItem> RemoteSources = new SelectList(logic.GetRemoteSources());
+            return View(new SearchViewModel() { RemoteSources = RemoteSources });
         }
 
         public IActionResult Browse()
@@ -40,7 +42,6 @@ namespace TorrentCheck.Controllers
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
@@ -58,12 +59,11 @@ namespace TorrentCheck.Controllers
         [HttpPost]
         public IActionResult Search(SearchViewModel query)
         {
-            SearchViewModel searchViewModel = new SearchViewModel();
             List<Result> SQLResults = logic.GetResultsSQL(query);
 
             if (SQLResults != null)
             {
-                searchViewModel.SQLResults = SQLResults;
+                query.SQLResults = SQLResults;
             }
 
             if (!query.ExcludeRemoteSources)
@@ -71,11 +71,13 @@ namespace TorrentCheck.Controllers
                 List<Result> HTTPResults = logic.GetResultsHTTP(query);
                 if (HTTPResults != null)
                 {
-                    searchViewModel.HTTPResults = HTTPResults;
+                    query.HTTPResults = HTTPResults;
                 }
             }
+            IEnumerable<SelectListItem> RemoteSources = new SelectList(logic.GetRemoteSources());
+            query.RemoteSources = RemoteSources;
 
-            return View(searchViewModel);
+            return View(query);
         }
 
         public FileResult Download(string FilePath)

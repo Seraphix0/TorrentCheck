@@ -60,6 +60,14 @@
                 </div>
                 <br />
                 <div class="form-inline">
+                    <label asp-for="RemoteSource"></label>
+                    <select asp-for="RemoteSource" asp-items="Model.RemoteSources">
+                        <!--<option selected="selected" value="">Please select</option>-->
+                    </select>
+                    <span asp-validation-for="RemoteSource" class="text-danger" />
+                </div>
+                <br />
+                <div class="form-inline">
                     <label asp-for="IncludeUntrustedResults"></label>
                     <input asp-for="IncludeUntrustedResults" class="form-control" />
                     <span asp-validation-for="IncludeUntrustedResults" class="checkbox"></span>

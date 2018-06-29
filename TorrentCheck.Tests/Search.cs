@@ -7,6 +7,7 @@ using System.IO;
 using TorrentCheck.DAL;
 using TorrentCheck.Models;
 using Microsoft.EntityFrameworkCore;
+using TorrentCheck.Models.HomeViewModels;
 
 namespace TorrentCheck.Tests
 {
@@ -18,13 +19,16 @@ namespace TorrentCheck.Tests
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TorrentCheckLocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
             context = new TorrentContext(optionsBuilder.Options);
+            logic = new HomeLogic(context);
             logicHTTP = new HomeLogicHTTP();
             logicSQL = new HomeLogicSQL(context);
         }
 
         private readonly TorrentContext context;
+        private readonly HomeLogic logic;
         private readonly HomeLogicHTTP logicHTTP;
         private readonly HomeLogicSQL logicSQL;
+        private readonly string uriString = "https://proxyfl.info/s/?q=Witcher 3&page=0&orderby=99"; 
 
         // Offline source
         [Fact]
@@ -39,6 +43,36 @@ namespace TorrentCheck.Tests
         public void SearchHTML2()
         {
             Assert.NotNull(logicHTTP.GetResults("https://proxyfl.info/s/?q=game&page=0&orderby=99"));
+        }
+
+        // Result list validation against source
+        [Fact]
+        public void SearchHTML3()
+        {
+            List<Result> results = logicHTTP.GetResults(System.Net.WebUtility.HtmlEncode(uriString));
+            Assert.Contains("The Witcher 3 Wild Hunt Game of the Year Edition PROPER-GOG", results[0].Title);
+        }
+
+        // Result list validation against source
+        [Fact]
+        public void SearchHTML4()
+        {
+            SearchViewModel query = new SearchViewModel()
+            {
+                Title = "Witcher 3",
+                Category = Category.Undefined,
+                IncludeUntrustedResults = false,
+                ExcludeRemoteSources = false
+            };
+
+            List<Result> results = logic.GetResultsHTTP(query);
+            Assert.Contains("The Witcher 3 Wild Hunt Game of the Year Edition PROPER-GOG", results[0].Title);
+        }
+
+        [Fact]
+        public void SearchHTMLGetRemoteSources1()
+        {
+            Assert.NotNull(logicHTTP.GetRemoteSources());
         }
 
         // Repository implementation test

@@ -27,9 +27,11 @@ namespace TorrentCheck.Logic
         /// <returns>List of results from HTTP source.</returns>
         public List<Result> GetResultsHTTP (SearchViewModel query)
         {
+            logicHTTP.RemoteSource = query.RemoteSource;
+
             if (query.Title != null)
             {
-                string uriString = String.Format("https://proxyfl.info/s/?q={0}&page=0&orderby=99", query.Title);
+                string uriString = String.Format("{0}/s/?q={1}&page=0&orderby=99", query.RemoteSource, query.Title);
                 List<Result> Results = logicHTTP.GetResults(uriString);
                 
                 if (!query.IncludeUntrustedResults)
@@ -42,6 +44,7 @@ namespace TorrentCheck.Logic
                             FilteredResults.Add(element);
                         }
                     }
+
                     Results = FilteredResults;
                 }
 
@@ -55,6 +58,7 @@ namespace TorrentCheck.Logic
                             FilteredResults.Add(element);
                         }
                     }
+
                     Results = FilteredResults;
                 }
 
@@ -69,32 +73,32 @@ namespace TorrentCheck.Logic
             {
                 if (query.Category == Category.Audio)
                 {
-                    string uriString = "https://proxyfl.info/browse/100";
+                    string uriString = string.Format("{0}/browse/100", query.RemoteSource);
                     return logicHTTP.GetResults(uriString);
                 }
                 else if (query.Category == Category.Video)
                 {
-                    string uriString = "https://proxyfl.info/browse/200";
+                    string uriString = string.Format("{0}/browse/200", query.RemoteSource);
                     return logicHTTP.GetResults(uriString);
                 }
                 else if (query.Category == Category.Applications)
                 {
-                    string uriString = "https://proxyfl.info/browse/300";
+                    string uriString = string.Format("{0}/browse/300", query.RemoteSource);
                     return logicHTTP.GetResults(uriString);
                 }
                 else if (query.Category == Category.Games)
                 {
-                    string uriString = "https://proxyfl.info/browse/400";
+                    string uriString = string.Format("{0}/browse/400", query.RemoteSource);
                     return logicHTTP.GetResults(uriString);
                 }
                 else if (query.Category == Category.Porn)
                 {
-                    string uriString = "https://proxyfl.info/browse/500";
+                    string uriString = string.Format("{0}/browse/500", query.RemoteSource);
                     return logicHTTP.GetResults(uriString);
                 }
                 else if (query.Category == Category.Other)
                 {
-                    string uriString = "https://proxyfl.info/browse/600";
+                    string uriString = string.Format("{0}/browse/600", query.RemoteSource);
                     return logicHTTP.GetResults(uriString);
                 }
 
@@ -127,7 +131,6 @@ namespace TorrentCheck.Logic
                     foreach (Result element in Results)
                     {
                         string titleLower = element.Title.ToLower();
-                        // if (element.Title.Contains(query.Title) && element.Category == query.Category)
                         if (titleLower.Contains(query.Title.ToLower()) && element.Category == query.Category)
                         {
                             FilteredResults.Add(element);
@@ -146,7 +149,6 @@ namespace TorrentCheck.Logic
                     foreach (Result element in Results)
                     {
                         string titleLower = element.Title.ToLower();
-                        // if (element.Title.Contains(query.Title))
                         if (titleLower.Contains(query.Title.ToLower()))
                         {
                             FilteredResults.Add(element);
@@ -180,6 +182,11 @@ namespace TorrentCheck.Logic
             }
 
             throw new Exception("Incorrect query format.");
+        }
+
+        public List<string> GetRemoteSources()
+        {
+            return logicHTTP.GetRemoteSources();
         }
     }
 }

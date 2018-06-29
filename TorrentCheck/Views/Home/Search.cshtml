@@ -54,12 +54,27 @@
             @if (Model.HTTPResults != null)
             {
                 <h4>Remote sources:</h4>
-                <ul>
-                    @foreach (Result element in Model.HTTPResults)
-                    {
-                        <li><div id="result"><a href="@element.ExtLink">Title: @element.Title | Trusted: @element.Trusted.ToString() | Category: @element.Category.ToString()</a></div></li>
-                    }
-                </ul>
+
+                <table id="TableHTTP">
+                    <thead>
+                        <tr>
+                            <th data-field="tite">Title</th>
+                            <th data-field="trusted">Trusted</th>
+                            <th data-field="category">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Result element in Model.HTTPResults)
+                        {
+                            <tr>
+                                <td><a href="@element.ExtLink">@element.Title</a></td>
+                                <td>@element.Trusted.ToString()</td>
+                                <td>@element.Category.ToString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
                 <br />
             }
         }

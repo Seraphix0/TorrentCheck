@@ -15,14 +15,16 @@ namespace TorrentCheck.Models.HomeViewModels
 
         public Category Category { get; set; }
 
-        public List<Result> HTTPResults { get; set; }
+        public IEnumerable<SelectListItem> RemoteSources { get; set; }
 
-        public List<Result> SQLResults { get; set; }
+        public string RemoteSource { get; set; }
 
         public bool IncludeUntrustedResults { get; set; }
 
         public bool ExcludeRemoteSources { get; set; }
 
-        public Result Result { get; set; }
+        public List<Result> HTTPResults { get; set; }
+
+        public List<Result> SQLResults { get; set; }
     }
 }
