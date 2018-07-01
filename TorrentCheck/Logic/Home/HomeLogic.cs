@@ -33,41 +33,48 @@ namespace TorrentCheck.Logic
             {
                 string uriString = String.Format("{0}/s/?q={1}&page=0&orderby=99", query.RemoteSource, query.Title);
                 List<Result> Results = logicHTTP.GetResults(uriString);
-                
-                if (!query.IncludeUntrustedResults)
+
+                try
                 {
-                    List<Result> FilteredResults = new List<Result>();
-                    foreach (Result element in Results)
+                    if (!query.IncludeUntrustedResults)
                     {
-                        if (element.Trusted)
+                        List<Result> FilteredResults = new List<Result>();
+                        foreach (Result element in Results)
                         {
-                            FilteredResults.Add(element);
+                            if (element.Trusted)
+                            {
+                                FilteredResults.Add(element);
+                            }
                         }
+
+                        Results = FilteredResults;
                     }
 
-                    Results = FilteredResults;
-                }
-
-                if (query.Category != Category.Undefined)
-                {
-                    List<Result> FilteredResults = new List<Result>();
-                    foreach (Result element in Results)
+                    if (query.Category != Category.Undefined)
                     {
-                        if (element.Category == query.Category)
+                        List<Result> FilteredResults = new List<Result>();
+                        foreach (Result element in Results)
                         {
-                            FilteredResults.Add(element);
+                            if (element.Category == query.Category)
+                            {
+                                FilteredResults.Add(element);
+                            }
                         }
+
+                        Results = FilteredResults;
                     }
 
-                    Results = FilteredResults;
-                }
+                    if (Results.Any())
+                    {
+                        return Results;
+                    }
 
-                if (Results.Any())
+                    return null;
+                }
+                catch (NullReferenceException)
                 {
-                    return Results;
+                    return null;
                 }
-
-                return null;
             }
             else
             {

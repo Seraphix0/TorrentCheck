@@ -63,6 +63,7 @@
                             <th data-field="category">Category</th>
                             <th data-field="seeders">Seeders</th>
                             <th data-field="leechers">Leechers</th>
+                            <th data-field="uploadDate">Upload date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,6 +75,7 @@
                             <td>@element.Category.ToString()</td>
                             <td>@element.Seeders</td>
                             <td>@element.Leechers</td>
+                            <td>@element.UploadDate.ToLongDateString()</td>
                         </tr>
                         }
                     </tbody>

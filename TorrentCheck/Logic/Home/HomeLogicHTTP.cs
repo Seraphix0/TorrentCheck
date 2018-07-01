@@ -91,7 +91,7 @@ namespace TorrentCheck.Logic
             List<Result> results = new List<Result>();
             foreach (string element in splitResults)
             {
-                results.Add(new Result(FilterTitle(element), FilterTrusted(element), FilterCategory(element), FilterLink(element), FilterSeeders(element), FilterLeechers(element)));
+                results.Add(new Result(FilterTitle(element), FilterTrusted(element), FilterCategory(element), FilterLink(element), FilterSeeders(element), FilterLeechers(element), FilterUploadDate(element)));
             }
 
             return results;
@@ -185,12 +185,14 @@ namespace TorrentCheck.Logic
             return leechers.Substring(0, leechers.IndexOf(needle2));
         }
 
-        /*
-        public string FilterUploadDate()
+        public string FilterUploadDate(string element)
         {
+            string needle1 = "Uploaded ";
+            string needle2 = ",";
 
+            string seeders = element.Substring(element.IndexOf(needle1) + needle1.Length);
+            return seeders.Substring(0, seeders.IndexOf(needle2));
         }
-        */
 
         public List<string> SplitSources(string queryOutput)
         {

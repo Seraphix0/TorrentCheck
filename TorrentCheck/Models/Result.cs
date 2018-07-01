@@ -32,6 +32,8 @@ namespace TorrentCheck.Models
         
         public string Leechers { get; set; }
 
+        public DateTime UploadDate { get; set; }
+
         public List<File> Files { get; set; }
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace TorrentCheck.Models
         /// <param name="title"></param>
         /// <param name="trusted"></param>
         /// <param name="category"></param>
-        public Result(string title, bool trusted, Category category, string extLink, string seeders, string leechers)
+        public Result(string title, bool trusted, Category category, string extLink, string seeders, string leechers, string uploadDate)
         {
             Title = title;
             Trusted = trusted;
@@ -69,6 +71,16 @@ namespace TorrentCheck.Models
             ExtLink = extLink;
             Seeders = seeders;
             Leechers = leechers;
+            UploadDate = GetDate(uploadDate);
+        }
+
+        public DateTime GetDate(string uploadDate)
+        {
+            int year = Convert.ToInt16(uploadDate.Substring(6));
+            int month = Convert.ToInt16(uploadDate.Substring(0, 2));
+            int day = Convert.ToInt16(uploadDate.Substring(3, 2));
+
+            return new DateTime(year, month, day);
         }
     }
 }
