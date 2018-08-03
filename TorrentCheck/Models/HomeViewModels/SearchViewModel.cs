@@ -10,6 +10,7 @@ namespace TorrentCheck.Models.HomeViewModels
 {
     public class SearchViewModel
     {
+        [Required]
         [Display(Name = "Title")]
         public string Title { get; set; }
 

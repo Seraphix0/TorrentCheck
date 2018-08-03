@@ -59,21 +59,25 @@ namespace TorrentCheck.Controllers
         [HttpPost]
         public IActionResult Search(SearchViewModel query)
         {
-            List<Result> SQLResults = logic.GetResultsSQL(query);
-
-            if (SQLResults != null)
+            if (ModelState.IsValid)
             {
-                query.SQLResults = SQLResults;
-            }
+                List<Result> SQLResults = logic.GetResultsSQL(query);
 
-            if (!query.ExcludeRemoteSources)
-            {
-                List<Result> HTTPResults = logic.GetResultsHTTP(query);
-                if (HTTPResults != null)
+                if (SQLResults != null)
                 {
-                    query.HTTPResults = HTTPResults;
+                    query.SQLResults = SQLResults;
+                }
+
+                if (!query.ExcludeRemoteSources)
+                {
+                    List<Result> HTTPResults = logic.GetResultsHTTP(query);
+                    if (HTTPResults != null)
+                    {
+                        query.HTTPResults = HTTPResults;
+                    }
                 }
             }
+
             IEnumerable<SelectListItem> RemoteSources = new SelectList(logic.GetRemoteSources());
             query.RemoteSources = RemoteSources;
 
