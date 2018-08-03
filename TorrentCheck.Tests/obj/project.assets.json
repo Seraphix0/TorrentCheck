@@ -10191,7 +10191,7 @@
       ]
     },
     "System.Interactive.Async/3.1.1": {
-      "sha512": "hZccYiIE5RS1/J9Tb/BNtosAGVggdlsJm4Ojdu+gDV0p4AIi+LUfUogMKkRacljQEJd2AG6vYzvcjhQFkqoZmw==",
+      "sha512": "lI/MUrL9JV3vfbXwjmD+bg+U8d+lg5r4Ohi+PV+4FdcSn11kP3+05j43GWKMot7N2HriMuVByc22azE+PMbf8w==",
       "type": "package",
       "path": "system.interactive.async/3.1.1",
       "files": [
@@ -11900,7 +11900,7 @@
       ]
     },
     "System.Runtime.Serialization.Formatters/4.3.0": {
-      "sha512": "KT591AkTNFOTbhZlaeMVvfax3RqhH1EJlcwF50Wm7sfnBLuHiOeZRRKrr1ns3NESkM20KPZ5Ol/ueMq5vg4QoQ==",
+      "sha512": "A6YTe8IzuaZShNIh0hH5lE8uV5OYTsAEPAymyvRE8Y+N0EqTLxOWKPbVdNzCOv6ipv/y+C6kbw7DQeyrArOnIA==",
       "type": "package",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "files": [
@@ -13335,7 +13335,7 @@
       ]
     },
     "System.Xml.XmlDocument/4.3.0": {
-      "sha512": "lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
+      "sha512": "5wDymxTYRVqTfGQE0pe72DDYctkidorXe0sCvgBofBuQoA4Y4aQi49/m0sTZOI3OtZyquSe0JZtwk2DzSyWP9g==",
       "type": "package",
       "path": "system.xml.xmldocument/4.3.0",
       "files": [
@@ -13724,7 +13724,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://www.myget.org/F/imagesharp/api/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {

@@ -85,5 +85,10 @@ namespace TorrentCheck.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath);
             return File(fileBytes, "application/x-msdownload", Path.GetFileName(FilePath));
         }
+
+        public IActionResult GetMagnetLink(string resultURL)
+        {
+            return Redirect(logic.GetMagnetLink(resultURL));
+        }
     }
 }

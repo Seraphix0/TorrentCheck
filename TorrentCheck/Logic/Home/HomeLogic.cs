@@ -195,6 +195,11 @@ namespace TorrentCheck.Logic
         {
             return logicHTTP.GetRemoteSources();
         }
+
+        public string GetMagnetLink(string resultURL)
+        {
+            return logicHTTP.GetMagnetLink(resultURL);
+        }
     }
 }
 

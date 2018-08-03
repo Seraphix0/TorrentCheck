@@ -5,6 +5,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
     <title>@ViewData["Title"] - TorrentCheck</title>
 
     <environment include="Development">
@@ -17,6 +25,8 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 
 <body>
@@ -54,28 +64,30 @@
                 <div class="form-inline">
                     <label asp-for="Category"></label>
                     <select asp-for="Category" asp-items="Html.GetEnumSelectList<Category>()">
-                        <!--<option selected="selected" value="">Please select</option>-->
                     </select>
                     <span asp-validation-for="Category" class="text-danger" />
                 </div>
                 <br />
-                <div class="form-inline">
-                    <label asp-for="RemoteSource"></label>
-                    <select asp-for="RemoteSource" asp-items="Model.RemoteSources">
-                        <!--<option selected="selected" value="">Please select</option>-->
-                    </select>
-                    <span asp-validation-for="RemoteSource" class="text-danger" />
-                </div>
+                <a id="advancedToggle" href="#" onclick="showAdvanced()">Show advanced settings</a>
                 <br />
-                <div class="form-inline">
-                    <label asp-for="IncludeUntrustedResults"></label>
-                    <input asp-for="IncludeUntrustedResults" class="form-control" />
-                    <span asp-validation-for="IncludeUntrustedResults" class="checkbox"></span>
-                </div>
-                <div class="form-inline">
-                    <label asp-for="ExcludeRemoteSources"></label>
-                    <input asp-for="ExcludeRemoteSources" class="form-control" />
-                    <span asp-validation-for="ExcludeRemoteSources" class="checkbox"></span>
+                <div id="advanced" hidden>
+                    <div class="form-inline">
+                        <label asp-for="RemoteSource"></label>
+                        <select asp-for="RemoteSource" asp-items="Model.RemoteSources">
+                        </select>
+                        <span asp-validation-for="RemoteSource" class="text-danger" />
+                    </div>
+                    <br />
+                    <div class="form-inline">
+                        <label asp-for="IncludeUntrustedResults"></label>
+                        <input asp-for="IncludeUntrustedResults" class="form-control" />
+                        <span asp-validation-for="IncludeUntrustedResults" class="checkbox"></span>
+                    </div>
+                    <div class="form-inline">
+                        <label asp-for="ExcludeRemoteSources"></label>
+                        <input asp-for="ExcludeRemoteSources" class="form-control" />
+                        <span asp-validation-for="ExcludeRemoteSources" class="checkbox"></span>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-default">Search</button>
             </div>
@@ -114,3 +126,14 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+<script>
+    function showFiles() {
+        $("#files").slideToggle("fast");
+    }
+
+    function showAdvanced() {
+        $("#advanced").slideToggle("fast");
+        $("#advancedToggle").remove();
+    }
+</script>

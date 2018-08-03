@@ -167,6 +167,17 @@ namespace TorrentCheck.Logic
             return RemoteSource + result;
         }
 
+        public string GetMagnetLink(string resultURL)
+        {
+            string needle1 = "magnet:";
+            string needle2 = "\"";
+
+            string resultSource = ExecuteQuery(resultURL);
+            string magnetLink = resultSource.Substring(resultSource.IndexOf(needle1));
+            magnetLink = magnetLink.Substring(0, magnetLink.IndexOf(needle2));
+            return WebUtility.HtmlDecode(magnetLink);
+        }
+
         public string FilterSeeders(string element)
         {
             string needle1 = "<td align=\"right\">";
@@ -185,13 +196,56 @@ namespace TorrentCheck.Logic
             return leechers.Substring(0, leechers.IndexOf(needle2));
         }
 
-        public string FilterUploadDate(string element)
+        public DateTime FilterUploadDate(string element)
         {
             string needle1 = "Uploaded ";
             string needle2 = ",";
 
-            string seeders = element.Substring(element.IndexOf(needle1) + needle1.Length);
-            return seeders.Substring(0, seeders.IndexOf(needle2));
+            string unformattedTime = element.Substring(element.IndexOf(needle1) + needle1.Length);
+            unformattedTime = unformattedTime.Substring(0, unformattedTime.IndexOf(needle2));
+
+            if (unformattedTime.Contains("<b>"))
+            {
+                unformattedTime = unformattedTime.Substring(3, unformattedTime.IndexOf("</b>") - 3);
+            }
+
+            if (unformattedTime.Contains("mins"))
+            {
+                int minute = Convert.ToInt16(unformattedTime.Substring(0, 2).TrimEnd());
+                return new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, minute, 0);
+            }
+            else if (unformattedTime.Contains("Today") || unformattedTime.Contains("Y-day"))
+            {
+                string formattedHourMinute = unformattedTime.Substring(6);
+                int day = DateTime.Now.Day;
+                if (unformattedTime.Contains("Y-day"))
+                {
+                    day = day--;
+                }
+                int hour = Convert.ToInt16(formattedHourMinute.Substring(0, 2));
+                int minute = Convert.ToInt16(formattedHourMinute.Substring(2, 2));
+                return new DateTime(DateTime.Now.Year, DateTime.Now.Month, day, hour, minute, 0);
+            }
+            else
+            {
+                int month = Convert.ToInt16(unformattedTime.Substring(0, 2));
+                int day = Convert.ToInt16(unformattedTime.Substring(3, 2));
+                int year = DateTime.Now.Year;
+                int hour = 0;
+                int minute = 0;
+
+                if (unformattedTime.Contains(":"))
+                {
+                    hour = Convert.ToInt16(unformattedTime.Substring(6, 2));
+                    minute = Convert.ToInt16(unformattedTime.Substring(9, 2));
+                }
+                else
+                {
+                    year = Convert.ToInt16(unformattedTime.Substring(6, 4));
+                }
+
+                return new DateTime(year, month, day, hour, minute, 0);
+            }
         }
 
         public List<string> SplitSources(string queryOutput)

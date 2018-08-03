@@ -6,6 +6,7 @@
 }
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
 
 <hr />
 
@@ -53,9 +54,7 @@
 
             @if (Model.HTTPResults != null)
             {
-                <h4>Remote sources:</h4>
-
-                <table id="TableHTTP">
+                <table data-toggle="table" id="TableHTTP">
                     <thead>
                         <tr>
                             <th data-field="tite">Title</th>
@@ -63,19 +62,42 @@
                             <th data-field="category">Category</th>
                             <th data-field="seeders">Seeders</th>
                             <th data-field="leechers">Leechers</th>
+                            <th data-field="uploadTime">Upload time</th>
                             <th data-field="uploadDate">Upload date</th>
+                            <th data-field="source">Source</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (Result element in Model.HTTPResults)
                         {
                         <tr>
-                            <td><a href="@element.ExtLink">@element.Title</a></td>
+                            <td>
+                                @Html.ActionLink(
+                                linkText: element.Title,
+                                actionName: "GetMagnetLink",
+                                controllerName: "Home",
+                                routeValues: new
+                                {
+                                    resultURL = element.ExtLink
+                                },
+                                htmlAttributes: null)
+                            </td>
                             <td>@element.Trusted.ToString()</td>
                             <td>@element.Category.ToString()</td>
                             <td>@element.Seeders</td>
                             <td>@element.Leechers</td>
-                            <td>@element.UploadDate.ToLongDateString()</td>
+                            <td>
+                                @if (element.UploadDate.Date == DateTime.Today)
+                                {@element.UploadDate.ToShortTimeString()}
+                            </td>
+                        @if (element.UploadDate.Date == DateTime.Today)
+                        {
+                            <td>Today</td> }
+                        else
+                        {
+                            <td>@element.UploadDate.ToShortDateString()</td>
+                        }
+                            <td><a href="@element.ExtLink">Source</a></td>
                         </tr>
                         }
                     </tbody>
